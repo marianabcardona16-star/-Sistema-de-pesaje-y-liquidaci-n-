@@ -1,0 +1,72 @@
+Algoritmo CentroAcopio
+    Definir opcion, categoria Como Entero
+    Definir peso_kg, tarifa, valor_bruto, valor_final, total_kg, total_dinero, peso_maximo Como Real
+
+    total_kg <- 0
+    total_dinero <- 0
+    peso_maximo <- 0
+
+    Repetir
+        Escribir "1. Registrar lote"
+        Escribir "2. Resumen"
+        Escribir "3. Salir"
+        Leer opcion
+
+        Segun opcion Hacer
+            1:
+                Escribir "Categoría (1=A, 2=B):"
+                Leer categoria
+
+                Si categoria = 1 O categoria = 2 Entonces
+                    Escribir "Peso en kg:"
+                    Leer peso_kg
+
+                    Mientras peso_kg <= 0 Hacer
+                        Escribir "Inválido. Reingrese:"
+                        Leer peso_kg
+                    FinMientras
+
+                    Si categoria = 1 Entonces
+                        tarifa <- 3500
+                    SiNo
+                        tarifa <- 2200
+                    FinSi
+
+                    valor_bruto <- peso_kg * tarifa
+
+                    Si categoria = 1 Y peso_kg > 500 Entonces
+                        valor_final <- valor_bruto * 1.05
+                    SiNo
+                        Si categoria = 2 Y peso_kg < 100 Entonces
+                            valor_final <- valor_bruto * 0.97
+                        SiNo
+                            valor_final <- valor_bruto
+                        FinSi
+                    FinSi
+
+                    total_kg <- total_kg + peso_kg
+                    total_dinero <- total_dinero + valor_final
+
+                    Si peso_kg > peso_maximo Entonces
+                        peso_maximo <- peso_kg
+                    FinSi
+
+                    Escribir "Valor a pagar: $", valor_final
+                SiNo
+                    Escribir "Categoría inválida"
+                FinSi
+
+            2:
+                Escribir "Total kg recibidos: ", total_kg
+                Escribir "Total desembolsado: $", total_dinero
+                Escribir "Lote más pesado: ", peso_maximo, " kg"
+
+            3:
+                Escribir "Cerrando sistema..."
+
+            De Otro Modo:
+                Escribir "Opción inválida"
+        FinSegun
+    Hasta Que opcion = 3
+FinAlgoritmo
+
